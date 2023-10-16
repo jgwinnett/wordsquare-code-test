@@ -1,3 +1,5 @@
+package com.glykon;
+
 import com.glykon.WordSquare;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,6 +12,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 import static org.apache.commons.collections4.CollectionUtils.isEqualCollection;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
@@ -26,7 +29,7 @@ public class WordSquareTest {
     @DisplayName("Solves problem examples when given whole words")
     @ParameterizedTest
     @MethodSource("expectedSquares")
-    public void shouldDoSomething(List<String> input) {
+    public void shouldCalculateValidWordSquareFromWordList(List<String> input) {
 
         List<String> expected = new ArrayList<>(input);
         List<String> randomisedInput = new ArrayList<>(Collections.unmodifiableList(input));
@@ -34,7 +37,7 @@ public class WordSquareTest {
 
         List<List<String>> result = wordSquare.solveWordSquare(randomisedInput);
 
-        assertTrue(isEqualCollection(result.getFirst(), expected));
+        assertEquals(expected, result.getFirst());
     }
 
     @ParameterizedTest

@@ -10,8 +10,5 @@ import static com.glykon.Utils.loadDictionary;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        List<String> validEnglishWords = loadDictionary();
-
-
     }
 }
