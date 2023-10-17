@@ -11,7 +11,7 @@ import static com.glykon.Utils.loadDictionary;
 public class WordFinder {
 
     List<String> validEnglishWords;
-    List<List<String>> validWordCombinations = new ArrayList<>();
+    Set<List<String>> validWordCombinations = new HashSet<>();
     HashMap<String, Map<Character, Integer>> wordCountChars = new HashMap<>();
 
     Map<Character, Integer> inputStringCharCount;
@@ -20,7 +20,7 @@ public class WordFinder {
         this.validEnglishWords = loadDictionary();
     }
 
-    public List<List<String>> findValidWordsOfLength(int length, String input) {
+    public Set<List<String>> findValidWordsOfLength(int length, String input) {
         reduceDictionarySearchSpaceByLength(length);
         reduceDictionarySearchSpaceByCharacters(input);
 
@@ -55,22 +55,19 @@ public class WordFinder {
 
         // if we have a list which hits the target length we are done
         if (currentSet.size() == targetLength ) {
-            boolean unique = true;
-            for (List<String> validCombo: validWordCombinations) {
-                if (CollectionUtils.isEqualCollection(validCombo, currentSet)) {
-                    unique = false;
-                    break;
-                }
-            }
-            if (unique) validWordCombinations.add(new ArrayList<>(currentSet));
-
+            List<String> toAdd = new ArrayList<>(currentSet);
+            Collections.sort(toAdd);
+            validWordCombinations.add(toAdd);
         }
         else {
             for (String key: keys) {
                 //get the char count
-                Map<Character, Integer> val = countCharsInInput(key);
+                Map<Character, Integer> val = wordCountChars.get(key);
+
                 // add the char counts to the total
-            Map<Character, Integer> totals = countCharsInInput(String.join("", currentSet));
+                String joined = String.join("", currentSet);
+                Map<Character, Integer> totals = countCharsInInput(joined);
+
                 boolean valid = true;
                 for (char c: val.keySet()) {
                     int charCount = val.get(c);
@@ -103,7 +100,6 @@ public class WordFinder {
 
         return charCount;
     }
-
 
     private void reduceDictionarySearchSpaceByLength(int wordLength) {
         validEnglishWords = validEnglishWords.stream().filter( word -> word.length() == wordLength).toList();
