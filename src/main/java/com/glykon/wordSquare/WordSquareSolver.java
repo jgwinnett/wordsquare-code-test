@@ -1,5 +1,6 @@
-package com.glykon;
+package com.glykon.wordSquare;
 
+import com.glykon.utils.Utils;
 import org.apache.commons.collections4.Trie;
 import org.apache.commons.collections4.trie.PatriciaTrie;
 
@@ -13,18 +14,15 @@ public class WordSquareSolver {
 
     List<List<String>> results;
     String input;
-
     List<String> validWords;
-
     int wordLength;
 
-    public WordSquareSolver(String input, int wordLength) throws IOException {
+    public WordSquareSolver(int wordLength, String input, List<String> dictionary) {
         this.results = new ArrayList<>();
         this.input = input;
         this.wordLength = wordLength;
-        this.validWords = loadDictionary();
+        this.validWords = Utils.reduceSearchSpace(wordLength, dictionary, input);
     }
-
 
     public List<List<String>> solveWordSquare() {
         wordSquareBacktrack(0, new ArrayList<>(), validWords);
@@ -39,13 +37,6 @@ public class WordSquareSolver {
         wordSquareBacktrackWithTrie(0, new ArrayList<>(), validWords, trie);
         return results;
     }
-
-    private List<String> loadDictionary() throws IOException {
-        List<String> dictionary = Utils.loadDictionary();
-        dictionary = Utils.reduceSearchSpace(wordLength, dictionary, input);
-        return dictionary;
-    }
-
 
     private void wordSquareBacktrack(int currentRow, List<String> wordSquareList, List<String> wordsLeft) {
 
@@ -100,4 +91,5 @@ public class WordSquareSolver {
                 }
             }
         }
-    }
+
+}

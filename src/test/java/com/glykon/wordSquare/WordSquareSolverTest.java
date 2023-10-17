@@ -1,33 +1,31 @@
-package com.glykon;
+package com.glykon.wordSquare;
 
+import com.glykon.utils.Utils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.when;
-
-@ExtendWith(MockitoExtension.class)
 public class WordSquareSolverTest {
 
     private WordSquareSolver wordSquare;
+    private List<String> dictionary;
+
+    @BeforeEach
+    public void setUp() throws IOException {
+        dictionary = Utils.loadDictionary();
+    }
 
     @ParameterizedTest
     @MethodSource("provideChallengeIO")
     @Disabled
-    public void shouldSolveSquare(int wordLength, String input, List<String> expected) throws IOException {
-        wordSquare = new WordSquareSolver(input, wordLength);
+    public void shouldSolveSquare(int wordLength, String input, List<String> expected)  {
+        wordSquare = new WordSquareSolver(wordLength, input, dictionary);
 
         List<List<String>> results= wordSquare.solveWordSquare();
         List<List<String>> actual = results.stream().filter(wordList -> CollectionUtils.isEqualCollection(wordList, expected)).toList();
@@ -37,8 +35,9 @@ public class WordSquareSolverTest {
 
     @ParameterizedTest
     @MethodSource("provideChallengeIO")
-    public void shouldSolveSquareWithTrie(int wordLength, String input, List<String> expected) throws IOException {
-        wordSquare = new WordSquareSolver(input, wordLength);
+    @DisplayName("Word Square Solver should return result set that contains examples from instructions")
+    public void shouldSolveSquareWithTrie(int wordLength, String input, List<String> expected)  {
+        wordSquare = new WordSquareSolver(wordLength, input, dictionary);
 
         List<List<String>> results= wordSquare.solveWordSquareWithTrie();
         List<List<String>> actual = results.stream().filter(wordList -> CollectionUtils.isEqualCollection(wordList, expected)).toList();

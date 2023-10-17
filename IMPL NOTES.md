@@ -40,7 +40,7 @@ Examples solve time - original:
 548
 34
 3sec 664
-2sec 897
+2sec 897 
 5min something
 
 Examples solve time - with Tries
@@ -51,3 +51,18 @@ Examples solve time - with Tries
 143ms
 5s 273
 
+-----
+
+Implemented:
+    * Solver creates wordsquares
+    * Basic service with very basic input validation
+    * Exception for bad user input 
+    * Runs from CLI (extremely noddy - just scanner )
+    
+TO-DO:
+    * Add tests for WordSquareService and InputValidator (no I didn't TDD these... I was aggy and wanted something functional)
+    * Update README 
+        - Installation instructions
+        - How to run 
+        - Screenshot of CLI in action 
+    * Cleanup legacy solve (optional);
