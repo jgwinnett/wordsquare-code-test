@@ -31,3 +31,23 @@ Basic process should be:
    4a. If not, remove the word above #
 6. repeat
 
+.......
+
+I HAD ALREADY BLEEDING SOLVED IT I JUST NEVER TRIED PUTTING IN THE LIST OF ELIGIBLE WORDS OMG. 
+
+Examples solve time - original: 
+
+548
+34
+3sec 664
+2sec 897
+5min something
+
+Examples solve time - with Tries
+
+564ms
+28ms
+252ms
+143ms
+5s 273
+
