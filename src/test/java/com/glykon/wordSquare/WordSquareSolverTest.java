@@ -2,7 +2,10 @@ package com.glykon.wordSquare;
 
 import com.glykon.utils.Utils;
 import org.apache.commons.collections4.CollectionUtils;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -24,10 +27,10 @@ public class WordSquareSolverTest {
     @ParameterizedTest
     @MethodSource("provideChallengeIO")
     @Disabled
-    public void shouldSolveSquare(int wordLength, String input, List<String> expected)  {
+    public void shouldSolveSquare(int wordLength, String input, List<String> expected) {
         wordSquare = new WordSquareSolver(wordLength, input, dictionary);
 
-        List<List<String>> results= wordSquare.solveWordSquare();
+        List<List<String>> results = wordSquare.solveWordSquare();
         List<List<String>> actual = results.stream().filter(wordList -> CollectionUtils.isEqualCollection(wordList, expected)).toList();
 
         Assertions.assertEquals(actual.size(), 1);
@@ -36,10 +39,10 @@ public class WordSquareSolverTest {
     @ParameterizedTest
     @MethodSource("provideChallengeIO")
     @DisplayName("Word Square Solver should return result set that contains examples from instructions")
-    public void shouldSolveSquareWithTrie(int wordLength, String input, List<String> expected)  {
+    public void shouldSolveSquareWithTrie(int wordLength, String input, List<String> expected) {
         wordSquare = new WordSquareSolver(wordLength, input, dictionary);
 
-        List<List<String>> results= wordSquare.solveWordSquareWithTrie();
+        List<List<String>> results = wordSquare.solveWordSquareWithTrie();
         List<List<String>> actual = results.stream().filter(wordList -> CollectionUtils.isEqualCollection(wordList, expected)).toList();
 
         Assertions.assertEquals(actual.size(), 1);
@@ -52,6 +55,6 @@ public class WordSquareSolverTest {
                 Arguments.of(5, "aaaeeeefhhmoonssrrrrttttw", List.of("feast", "earth", "armor", "stone", "threw")),
                 Arguments.of(5, "aabbeeeeeeeehmosrrrruttvv", List.of("heart", "ember", "above", "revue", "trees")),
                 Arguments.of(7, "aaaaaaaaabbeeeeeeedddddggmmlloooonnssssrrrruvvyyy", List.of("bravado", "renamed", "analogy", "valuers", "amoebas", "degrade", "odyssey"))
-                );
+        );
     }
 }

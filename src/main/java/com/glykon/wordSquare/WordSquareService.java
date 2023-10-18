@@ -12,7 +12,7 @@ public class WordSquareService {
 
     private final WordSquareSolverFactory wordSquareSolverFactory;
 
-    public WordSquareService( List<String> dictionary, InputValidator inputValidator, WordSquareSolverFactory wordSquareSolverFactory) {
+    public WordSquareService(List<String> dictionary, InputValidator inputValidator, WordSquareSolverFactory wordSquareSolverFactory) {
         this.dictionary = dictionary;
         this.inputValidator = inputValidator;
         this.wordSquareSolverFactory = wordSquareSolverFactory;
@@ -25,7 +25,7 @@ public class WordSquareService {
     }
 
     public void printWordSquare(List<String> square) {
-        for (String word: square) {
+        for (String word : square) {
             System.out.println(word);
         }
     }
@@ -38,5 +38,4 @@ public class WordSquareService {
         }
         return input.split(" ");
     }
-
 }

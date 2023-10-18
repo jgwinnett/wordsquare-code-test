@@ -29,10 +29,12 @@ public class WordSquareServiceTest {
 
     private final List<String> dictionary = Collections.emptyList();
     private final String input = "2 abcde";
+
     @BeforeEach
     public void setup() {
         underTest = new WordSquareService(dictionary, inputValidator, wordSquareSolverFactory);
     }
+
     @Test
     public void shouldValidateInput() throws Exception {
         commonStubbing();
@@ -43,9 +45,9 @@ public class WordSquareServiceTest {
     }
 
     @Test
-    public void serviceShouldThrowExceptionIfInputValidationFails()  {
+    public void serviceShouldThrowExceptionIfInputValidationFails() {
         doThrow(new InvalidInputException("some error")).when(inputValidator).validateInput(input);
-        Exception e = assertThrows( Exception.class,
+        Exception e = assertThrows(Exception.class,
                 () -> underTest.getWordSquaresForInput(input)
         );
 
@@ -61,8 +63,8 @@ public class WordSquareServiceTest {
         assertNotNull(result);
     }
 
-     private void commonStubbing() {
-        when(wordSquareSolverFactory.buildWordSquareSolver(any(),anyList())).thenReturn(wordSquareSolver);
+    private void commonStubbing() {
+        when(wordSquareSolverFactory.buildWordSquareSolver(any(), anyList())).thenReturn(wordSquareSolver);
         when(wordSquareSolver.solveWordSquareWithTrie()).thenReturn(new ArrayList<>());
     }
 }

@@ -19,6 +19,8 @@ Run `mvn install` - this will generate two JARs in the `/target` directory - `wo
 
 ## Running the program from the command line 
 
+Use one of the following methods below, then follow the instructions provided by the application. 
+
 ### Via Maven
 
 Ensure the code has been compiled, either as a lifecycle stage of (`mvn install`) or explicitly via `mvn compile`
@@ -28,10 +30,10 @@ Run `mvn exec:java`
 ### Via Java
 
 Ensure you have installed the package and are in the project directory (i.e. you can see the `target` folder)
-🫠
+
 Run `java -jar target/word-square-test-1.0-jar-with-dependencies.jar` 
 
-You must run the 'jar-with-dependencies' else the application will keel over when it tries to construct an Apache Commons Trie.
+You must run the 'jar-with-dependencies' else the application will keel over when it tries to construct an Apache Commons Trie 🫠.
 
 ### Proof of functionality, miscellaneous notes
 

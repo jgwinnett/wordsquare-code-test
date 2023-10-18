@@ -2,7 +2,6 @@ package com.glykon.validators;
 
 import com.glykon.exception.InvalidInputException;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -24,7 +23,7 @@ class InputValidatorTest {
                 () -> validator.validateInput(input), "Expected validator to throw a length based exception");
 
         assertEquals("ERROR: Your input is invalid, please check that it follows the format \"integerN stringOfLengthNSquared\"", thrown.getMessage());
-        }
+    }
 
     @ParameterizedTest()
     @ValueSource(strings = {"a abcdefg", "wow input", "% spooky", "three abshbads"})
@@ -56,7 +55,7 @@ class InputValidatorTest {
     @ParameterizedTest()
     @ValueSource(strings = {"2 abcd", "3 abcdefghi", "4 aaaaeeeerrrrtttt"})
     void shouldNotThrowExceptionIdValidInputPassed(String input) {
-        assertDoesNotThrow( () -> validator.validateInput(input), "Valid inputs should not throw an exception");
+        assertDoesNotThrow(() -> validator.validateInput(input), "Valid inputs should not throw an exception");
     }
 
 

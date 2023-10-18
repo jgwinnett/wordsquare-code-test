@@ -42,8 +42,7 @@ public class WordSquareSolver {
         // if the length of wordSquareList is the same as the length of the word then we must be done and can exit
         if (currentRow == wordLength) {
             results.add(new ArrayList<>(wordSquareList));
-        }
-        else {
+        } else {
             // no prefix if this is the first word in the square
             StringBuilder prefix = new StringBuilder();
             // if it's the second word then we know it must start with the 2nd character of the original word
@@ -68,8 +67,7 @@ public class WordSquareSolver {
         // if the length of wordSquareList is the same as the length of the word then we must be done and can exit
         if (currentRow == wordLength) {
             results.add(new ArrayList<>(wordSquareList));
-        }
-        else {
+        } else {
             StringBuilder prefix = new StringBuilder();
             for (String s : wordSquareList) {
                 prefix.append(s.charAt(currentRow));
@@ -79,17 +77,16 @@ public class WordSquareSolver {
             Set<String> words = eligibleWords.keySet();
 
             for (String word : words) {
-                    wordSquareList.add(word);
-                    List<String> reducedWords = new ArrayList<>(words);
-                    reducedWords.remove(word);
-                    wordSquareBacktrackWithTrie(currentRow + 1, wordSquareList, reducedWords, dict);
-                    wordSquareList.removeLast();
-                }
+                wordSquareList.add(word);
+                List<String> reducedWords = new ArrayList<>(words);
+                reducedWords.remove(word);
+                wordSquareBacktrackWithTrie(currentRow + 1, wordSquareList, reducedWords, dict);
+                wordSquareList.removeLast();
             }
         }
+    }
 
     public List<List<String>> getResults() {
         return results;
     }
-
 }
