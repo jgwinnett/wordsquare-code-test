@@ -66,3 +66,10 @@ TO-DO:
         - How to run 
         - Screenshot of CLI in action 
     * Cleanup legacy solve (optional);
+
+---
+
+InputValidator tests added and slightly refactored
+Service tests added - add to add a fairly unnecessary Factory to allow clean testing. 
+Screenshot added to README
+

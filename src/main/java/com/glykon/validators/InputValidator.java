@@ -5,20 +5,14 @@ import com.glykon.exception.InvalidInputException;
 public class InputValidator {
 
 
-    public boolean isValid(String input) throws InvalidInputException {
+    public void validateInput(String input)  throws InvalidInputException {
 
         String trimmedInput = input.trim();
-        boolean valid = true;
-        try {
-            String[] inputs = trimmedInput.split(" ");
-            validateLength(inputs);
-            validateFirstArgIsInteger(inputs[0]);
-            validateSecondArgIsSquareLength(inputs);
-        } catch (InvalidInputException e) {
-            valid = false;
-        }
-
-        return valid;
+        String[] inputs = trimmedInput.split(" ");
+        validateLength(inputs);
+        validateFirstArgIsInteger(inputs[0]);
+        validateSecondArgIsSquareLength(inputs);
+        validateSecondArgumentContainsOnlyAlpha(inputs);
     }
 
     private void validateLength(String[] inputs) throws InvalidInputException {
@@ -40,6 +34,14 @@ public class InputValidator {
 
         if (inputs[1].length() != Math.pow(wordLength, 2)) {
             throw new InvalidInputException("ERROR: your character sequence was the incorrect length");
+        }
+    }
+
+    private void validateSecondArgumentContainsOnlyAlpha(String[] inputs) {
+        boolean allLetters = inputs[1].chars().allMatch(Character::isLetter);
+
+        if (!allLetters) {
+            throw new InvalidInputException("ERROR: your input string contained non alphabet characters");
         }
     }
 

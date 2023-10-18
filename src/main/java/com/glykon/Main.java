@@ -1,9 +1,10 @@
 package com.glykon;
 
 import com.glykon.utils.Utils;
+import com.glykon.validators.InputValidator;
 import com.glykon.wordSquare.WordSquareService;
+import com.glykon.wordSquare.WordSquareSolverFactory;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -11,7 +12,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         List<String> dictionary = Utils.loadDictionary();
-        WordSquareService wordSquareService = new WordSquareService(dictionary);
+        WordSquareService wordSquareService = new WordSquareService(dictionary, new InputValidator(), new WordSquareSolverFactory());
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to the word square problem solver \n");
@@ -24,20 +25,19 @@ public class Main {
 
         List<List<String>> wordSquares = wordSquareService.getWordSquaresForInput(input);
 
-        if (wordSquares.size() == 0) {
-            System.out.println("No valid word squares were found, exiting");
+        if (wordSquares.isEmpty()) {
+            System.out.println("No valid word squares were found, please re-run and try another input");
             scanner.close();
-        }
-
+        } else {
         System.out.printf("\n There are %s valid word squares \n", wordSquares.size() );
         System.out.println("Which square would you like to view?");
-        System.out.println("(No funny business please, i've not implemented proper input handling \n");
+        System.out.println("(No funny business please, i've not implemented proper input handling) \n");
 
         String desiredSquare = scanner.nextLine();
 
         System.out.println("\n");
 
-        wordSquareService.printWordSquare(wordSquares.get(Integer.parseInt(desiredSquare)));
+        wordSquareService.printWordSquare(wordSquares.get(Integer.parseInt(desiredSquare) -1));
 
         while (true) {
             System.out.println("\n");
@@ -52,9 +52,11 @@ public class Main {
                 break;
             }
             System.out.println("\n");
-            wordSquareService.printWordSquare(wordSquares.get(Integer.parseInt(desiredSquare)));
+            wordSquareService.printWordSquare(wordSquares.get(square - 1));
         }
 
         scanner.close();
     }
+
+        }
 }

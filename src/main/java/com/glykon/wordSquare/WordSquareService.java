@@ -7,32 +7,35 @@ import java.util.List;
 
 public class WordSquareService {
 
-    List<String> dictionary;
-    InputValidator inputValidator;
+    private final List<String> dictionary;
+    private final InputValidator inputValidator;
 
-    public WordSquareService( List<String> dictionary) {
+    private final WordSquareSolverFactory wordSquareSolverFactory;
+
+    public WordSquareService( List<String> dictionary, InputValidator inputValidator, WordSquareSolverFactory wordSquareSolverFactory) {
         this.dictionary = dictionary;
-        this.inputValidator = new InputValidator();
+        this.inputValidator = inputValidator;
+        this.wordSquareSolverFactory = wordSquareSolverFactory;
     }
 
     public List<List<String>> getWordSquaresForInput(String input) throws Exception {
-
         String[] inputs = handleInput(input);
-        WordSquareSolver wordSquareSolver = new WordSquareSolver(Integer.parseInt(inputs[0]), inputs[1], dictionary);
+        WordSquareSolver wordSquareSolver = wordSquareSolverFactory.buildWordSquareSolver(inputs, dictionary);
         return wordSquareSolver.solveWordSquareWithTrie();
     }
 
     public void printWordSquare(List<String> square) {
-
         for (String word: square) {
             System.out.println(word);
         }
     }
 
     private String[] handleInput(String input) throws Exception {
-        String trimmedInput = input.trim();
-        boolean valid = inputValidator.isValid(trimmedInput);
-        if (!valid) throw new Exception("Input is invalid");
+        try {
+            inputValidator.validateInput(input);
+        } catch (InvalidInputException invalidInputException) {
+            throw new Exception(invalidInputException.getMessage());
+        }
         return input.split(" ");
     }
 

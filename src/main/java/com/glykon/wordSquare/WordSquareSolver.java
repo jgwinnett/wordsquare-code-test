@@ -4,7 +4,6 @@ import com.glykon.utils.Utils;
 import org.apache.commons.collections4.Trie;
 import org.apache.commons.collections4.trie.PatriciaTrie;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,18 +11,17 @@ import java.util.Set;
 
 public class WordSquareSolver {
 
-    List<List<String>> results;
-    String input;
-    List<String> validWords;
-    int wordLength;
+    private final List<List<String>> results;
+    private final List<String> validWords;
+    private final int wordLength;
 
     public WordSquareSolver(int wordLength, String input, List<String> dictionary) {
         this.results = new ArrayList<>();
-        this.input = input;
         this.wordLength = wordLength;
         this.validWords = Utils.reduceSearchSpace(wordLength, dictionary, input);
     }
 
+    @Deprecated
     public List<List<String>> solveWordSquare() {
         wordSquareBacktrack(0, new ArrayList<>(), validWords);
         return results;
@@ -38,6 +36,7 @@ public class WordSquareSolver {
         return results;
     }
 
+    @Deprecated
     private void wordSquareBacktrack(int currentRow, List<String> wordSquareList, List<String> wordsLeft) {
 
         // if the length of wordSquareList is the same as the length of the word then we must be done and can exit
@@ -71,10 +70,7 @@ public class WordSquareSolver {
             results.add(new ArrayList<>(wordSquareList));
         }
         else {
-            // no prefix if this is the first word in the square
             StringBuilder prefix = new StringBuilder();
-            // if it's the second word then we know it must start with the 2nd character of the original word
-            // if it's the third word then it must begin with the 3rd char of w1 + the 3rd char of w2, etc.
             for (String s : wordSquareList) {
                 prefix.append(s.charAt(currentRow));
             }
@@ -91,5 +87,9 @@ public class WordSquareSolver {
                 }
             }
         }
+
+    public List<List<String>> getResults() {
+        return results;
+    }
 
 }

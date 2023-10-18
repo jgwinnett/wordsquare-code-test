@@ -1,15 +1,28 @@
 package com.glykon.utils;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class Utils {
     public static List<String> loadDictionary() throws IOException {
-        Path dictionaryPath = Path.of(Objects.requireNonNull(Utils.class.getClassLoader().getResource("dictionary.txt")).getPath());
-        return Files.readAllLines(dictionaryPath);
+
+        List<String> dictionary = new ArrayList<>();
+
+        try (InputStream is = Utils.class.getResourceAsStream("/dictionary.txt");
+             Scanner scanner = new Scanner(is)) {
+
+            while (scanner.hasNextLine()) {
+                dictionary.add(scanner.nextLine());
+            }
+        }
+
+        return dictionary;
     }
 
     public static List<String> reduceSearchSpace(int wordLength, List<String> dictionary, String input) {
